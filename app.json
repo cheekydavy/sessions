@@ -1,0 +1,21 @@
+{
+    "name": "Mbuvi-MD Pairing",
+    "description": "Mbuvi-MD WA bot, Created by Mbuvi tech",
+    "repository": "https://github.com/cheekydavy/sessions",
+    "keywords": ["MbuviMd"],
+    "success_url": "/", 
+    "buildpacks": [{ "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" } ],
+    "env": {      
+      "PORT": {
+        "description": "Port for web app.4000,5000,3000... any!",
+        "value": "5000",
+        "required": false 
+      },
+      "MESSAGE": {
+        "description": "set session id conformation message",
+        "value": "",
+        "required": false 
+      }
+    }   
+
+}
