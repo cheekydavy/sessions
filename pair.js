@@ -45,11 +45,9 @@ router.get('/', async (req, res) => {
             }
 
             Pair_Code_By_Mbuvi_Tech.ev.on('creds.update', saveCreds);
-            let notified = false; // <-- Add this flag
             Pair_Code_By_Mbuvi_Tech.ev.on('connection.update', async (s) => {
                 const { connection, lastDisconnect } = s;
-                if (connection === 'open' && !notified) {
-                    notified = true; // <-- Set flag so it only runs once
+                if (connection === 'open') {
                     await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: `
 ◈━━━━━━━━━━━◈
 │❒ Hello! 👋 You're now connected to Mbuvi-MD.
@@ -95,7 +93,7 @@ ______________________________`;
                     return await removeFile('./temp/' + id);
                 } else if (connection === 'close' && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10000);
-                    Mbuvi_MD_PAIR_CODE();
+                    await removeFile('./temp/' + id);
                 }
             });
         } catch (err) {
