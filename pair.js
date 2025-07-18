@@ -45,10 +45,11 @@ router.get('/', async (req, res) => {
             }
 
             Pair_Code_By_Mbuvi_Tech.ev.on('creds.update', saveCreds);
+            let notified = false; // <-- Add this flag
             Pair_Code_By_Mbuvi_Tech.ev.on('connection.update', async (s) => {
                 const { connection, lastDisconnect } = s;
-                if (connection === 'open') {
-                   
+                if (connection === 'open' && !notified) {
+                    notified = true; // <-- Set flag so it only runs once
                     await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: `
 ◈━━━━━━━━━━━◈
 │❒ Hello! 👋 You're now connected to Mbuvi-MD.
@@ -71,16 +72,13 @@ router.get('/', async (req, res) => {
 ________________________
 ╔════════════════════◇
 ║『 YOU'VE CHOSEN MBUVI MD 』
-║ -Set the session ID in Heroku:
-║ - SESSION_ID: mbuvi~<data>
+║ -Set the in Heroku:
 ╚════════════════════╝
 ╔════════════════════◇
 ║ 『••• _V𝗶𝘀𝗶𝘁 𝗙𝗼𝗿_H𝗲𝗹𝗽 •••』
-║❍ 𝐘𝐨𝐮𝐭𝐮𝐛𝐞: _youtube.com/@Rhodvick_
 ║❍ 𝐎𝐰𝐧𝐞𝐫: _https://wa.me/254746440595_
-║❍ 𝐑𝐞𝐩𝐨: _https://github.com/cheekydavy/mbuvi-md_
-║❍ 𝐖𝐚𝐆𝐫𝐨𝐮𝐩: _https://chat.whatsapp.com/JZxR4t6JcMv66OEiRRCB2P_
-║❍ 𝐖𝐚𝐂𝐡𝐚𝐧𝐧𝐞𝐬𝐥: _https://whatsapp.com/channel/0029VaPZWbY1iUxVVRIIOm0D_
+║❍ 𝐑𝐞𝐩𝐨: _https://github.com/cheekydavy/mbuvimd_
+║❍ 𝐖𝐚𝐂𝐡𝐚𝐧𝐧𝐞𝐥: _https://whatsapp.com/channel/0029VaPZWbY1iUxVVRIIOm0D_
 ║❍ 𝐈𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦: _https://www.instagram.com/_mbuvi_
 ║ ☬ ☬ ☬ ☬
 ╚═════════════════════╝ 
