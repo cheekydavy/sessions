@@ -48,7 +48,7 @@ router.get('/', async (req, res) => {
             Pair_Code_By_Mbuvi_Tech.ev.on('connection.update', async (s) => {
                 const { connection, lastDisconnect } = s;
                 if (connection === 'open') {
-                   
+                    console.log('Initial message sent');
                     await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: `
 ◈━━━━━━━━━━━◈
 │❒ Hello! 👋 You're now connected to Mbuvi-MD.
@@ -61,6 +61,7 @@ router.get('/', async (req, res) => {
                     await delay(8000);
                     let b64data = Buffer.from(data).toString('base64');
                     let session = await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: '' + b64data });
+                    console.log('Session ID sent');
 
                     let Mbuvi_MD_TEXT = `
 ╔════════════════════◇
@@ -74,7 +75,7 @@ ________________________
 ║ -Thats your session ID:
 ╚════════════════════╝
 ╔════════════════════◇
-║ 『••• _V𝗶𝘀𝗶𝘁 𝗙𝗼𝗿_H𝗲𝗹𝗽 •••』
+║ 『••• _V𝗶𝘀𝗶𝘵 𝗙𝗼𝗿_H𝗲𝗹𝗽 •••』
 ║❍ 𝐎𝐰𝐧𝐞𝐫: _https://wa.me/254746440595_
 ║❍ 𝐑𝐞𝐩𝐨: _https://github.com/cheekydavy/mbuvimd_
 ║❍ 𝐖𝐚𝐂𝐡𝐚𝐧𝐧𝐞𝐥: _https://whatsapp.com/channel/0029VaPZWbY1iUxVVRIIOm0D_
@@ -88,13 +89,15 @@ Don't Forget To Give Star⭐ To My Repo
 ______________________________`;
 
                     await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: Mbuvi_MD_TEXT }, { quoted: session });
+                    console.log('Final message sent');
 
-                    await delay(100);
-                    await Pair_Code_By_Mbuvi_Tech.ws.close();
-                    return await removeFile('./temp/' + id);
+                    setTimeout(async () => {
+                        await removeFile('./temp/' + id);
+                        console.log('Cleanup done');
+                    }, 55000);
+                    Mbuvi_MD_PAIR_CODE();
                 } else if (connection === 'close' && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10000);
-                    await removeFile('./temp/' + id);
                 }
             });
         } catch (err) {
