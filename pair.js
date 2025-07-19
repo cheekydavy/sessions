@@ -94,10 +94,7 @@ ______________________________`;
                     return await removeFile('./temp/' + id);
                 } else if (connection === 'close' && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10000);
-                    setTimeout(async () => {
-                        await removeFile('./temp/' + id);
-                    }, 55000);
-                    Mbuvi_MD_PAIR_CODE();
+                    await removeFile('./temp/' + id);
                 }
             });
         } catch (err) {
