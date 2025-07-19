@@ -91,9 +91,9 @@ ______________________________`;
                     await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: Mbuvi_MD_TEXT }, { quoted: session });
                     console.log('Final message sent');
 
-                    await delay(100);
-                    await Pair_Code_By_Mbuvi_Tech.ws.close();
-                    return await removeFile('./temp/' + id);
+                    await removeFile('./temp/' + id);
+                    console.log('Cleanup done');
+                    return;
                 } else if (connection === 'close' && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10000);
                     setTimeout(async () => {
