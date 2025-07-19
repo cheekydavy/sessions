@@ -48,6 +48,7 @@ router.get('/', async (req, res) => {
             Pair_Code_By_Mbuvi_Tech.ev.on('connection.update', async (s) => {
                 const { connection, lastDisconnect } = s;
                 if (connection === 'open') {
+                   
                     await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: `
 ◈━━━━━━━━━━━◈
 │❒ Hello! 👋 You're now connected to Mbuvi-MD.
@@ -70,7 +71,7 @@ router.get('/', async (req, res) => {
 ________________________
 ╔════════════════════◇
 ║『 YOU'VE CHOSEN MBUVI MD 』
-║ -Set the in Heroku:
+║ -Thats your session ID:
 ╚════════════════════╝
 ╔════════════════════◇
 ║ 『••• _V𝗶𝘀𝗶𝘁 𝗙𝗼𝗿_H𝗲𝗹𝗽 •••』
@@ -93,7 +94,10 @@ ______________________________`;
                     return await removeFile('./temp/' + id);
                 } else if (connection === 'close' && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10000);
-                    await removeFile('./temp/' + id);
+                    setTimeout(async () => {
+                        await removeFile('./temp/' + id);
+                    }, 55000);
+                    Mbuvi_MD_PAIR_CODE();
                 }
             });
         } catch (err) {
