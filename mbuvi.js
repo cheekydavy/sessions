@@ -17,8 +17,8 @@ res.sendFile(__path + '/main.html')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(PORT, () => {
-    console.log(`
-xD xD 🚨
+    console.log(` 
+    live ⚙️'
 
  Server running on http://localhost:` + PORT)
 })
